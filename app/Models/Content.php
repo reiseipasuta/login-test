@@ -15,8 +15,14 @@ class Content extends Model
         'user-id',
     ];
 
-    public function user()
+
+    public function comments()
     {
-        return $this->belongsTo(Content::class);
+        return $this->hasMany(comment::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(user::class);
     }
 }

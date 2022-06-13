@@ -7,11 +7,33 @@
     <title>コンテンツ</title>
 </head>
 <body>
-<h3>タイトル</h3>
-<p>{{ $content->title }}</p>
-<h3>内容</h3>
-<p>{{ $content->body }}</p>
+<p>ID：{{ $content->user_id }}</p>
+<p>タイトル：{{ $content->title }}</p>
+<p>内容：{{ $content->body }}</p>
 
-<a href="{{ route('top') }}">トップへ戻る</a>
+<h2>コメント</h2>
+<ul>
+    <li>
+        <form action="{{ route('comments', $content) }}" method="post">
+            @csrf
+            <input type="text" name="body">
+            <button>送信</button>
+        </form>
+    </li>
+    @foreach ($content->comments as $comment)
+        <li>
+            {{ $comment->body }}
+        </li>
+        @endforeach
+</ul>
+    @if ($content->user_id === Auth::id())
+        <a href="{{ route('change', $content) }}">編集する</a>
+        <form method="post" action="{{ route('delete', $content) }}">
+            @csrf
+            <button>【削除】</button>
+        </form>
+    @endif
+
+    <a href="{{ route('top') }}">トップへ戻る</a>
 </body>
 </html>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,15 +18,18 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['guest']], function () {
 
     Route::get('/', function () {
-        return view('welcome');
+        return view('index');
+    });
+
+    Route::get('/index', function () {
+        return view('index');
     });
 });
 
 Route::group(['middleware' => ['auth']], function () {
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [MainController::class, 'dashboard'])
+       ->name('dashboard');
 
     Route::get('/top', [MainController::class, 'top'])
         ->name('top');
@@ -35,6 +39,18 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/contents/{content}', [MainController::class, 'contents'])
         ->name('contents');
+
+    Route::post('/contents/{content}/comments', [CommentController::class, 'create'])
+        ->name('comments');
+
+    Route::get('/contents/{content}/change', [MainController::class, 'change'])
+        ->name('change');
+
+    Route::patch('/contents/{content}/edit', [MainController::class, 'edit'])
+        ->name('edit');
+
+    Route::post('/contents/{content}/delete', [MainController::class, 'delete'])
+        ->name('delete');
 
 });
 

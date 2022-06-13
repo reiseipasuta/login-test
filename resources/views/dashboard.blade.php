@@ -13,8 +13,24 @@
                     <ul>
                         <li>名前：{{ Auth::user()->name }}</li>
                         <li>メールアドレス：{{ Auth::user()->email }}</li>
-                        <li>{{ Auth::user()->id }}</li>
+                        <li>ユーザーID：{{ Auth::id() }}</li>
                     </ul>
+                    <h3>投稿一覧</h3>
+                    <ul>
+                        @foreach ($contents as $content)
+                            @if ($content->user_id === Auth::id())
+                                <li>
+                                    <a href="{{ route('contents', $content) }}">{{ $content->title }}</a>
+                                    <a href="{{ route('change', $content) }}">【編集】</a>
+                                    <form method="post" action="{{ route('delete', $content) }}">
+                                        @csrf
+                                        <button>【削除】</button>
+                                    </form>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+
                 </div>
             </div>
             <a href="{{ route('top') }}">トップへ戻る</a>

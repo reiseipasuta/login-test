@@ -13,16 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('contents', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->string('title');
+            $table->unsignedBigInteger('content_id');
             $table->string('body');
             $table->timestamps();
             $table
-                ->foreign('user_id')
+                ->foreign('content_id')
                 ->references('id')
-                ->on('users');
+                ->on('contents')
+                ->onDelete('cascade');
         });
     }
 
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contents');
+        Schema::dropIfExists('comments');
     }
 };
