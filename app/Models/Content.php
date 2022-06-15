@@ -13,6 +13,7 @@ class Content extends Model
         'title',
         'body',
         'user-id',
+        'good',
     ];
 
 
@@ -25,4 +26,13 @@ class Content extends Model
     {
         return $this->belongsTo(user::class);
     }
+
+    public function usersFavo()
+    {
+        return $this->belongsToMany(User::class);
+        // return $this->belongsToMany(User::class, 'content_user', 'user_id', 'content_id');
+    }
+
+
 }
+

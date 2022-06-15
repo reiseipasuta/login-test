@@ -22,6 +22,7 @@
                 <a href="{{ route('contents', $content) }}">
                     {{ $content->title }}
                 </a>
+                いいね：{{ $content->usersFavo()->count() }}
             </li>
         @endforeach
     </ul>

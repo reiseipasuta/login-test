@@ -37,6 +37,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/create', [MainController::class, 'create'])
         ->name('create');
 
+    Route::get('/contents/followlist', [MainController::class, 'followlist'])
+        ->name('followlist');
+
+    Route::get('/contents/followerlist', [MainController::class, 'followerlist'])
+        ->name('followerlist');
+
+    Route::get('/contents/favoritelist', [MainController::class, 'favoriteList'])
+        ->name('favoritelist');
+
     Route::get('/contents/{content}', [MainController::class, 'contents'])
         ->name('contents');
 
@@ -51,6 +60,26 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('/contents/{content}/delete', [MainController::class, 'delete'])
         ->name('delete');
+
+    Route::post('/contents/{content}/good', [MainController::class, 'good'])
+        ->name('good');
+
+    Route::post('/contents/{content}/follow', [MainController::class, 'follow'])
+        ->name('follow');
+
+    Route::post('/contents/{content}/unfollow', [MainController::class, 'unfollow'])
+        ->name('unfollow');
+
+    Route::post('/contents/{content}/favorite', [MainController::class, 'favorite'])
+        ->name('favorite');
+
+    Route::post('/contents/{content}/unfavorite', [MainController::class, 'unfavorite'])
+        ->name('unfavorite');
+
+    Route::get('/contents/{user}/page', [MainController::class, 'userPage'])
+        ->name('userPage');
+
+
 
 });
 

@@ -13,17 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('contents', function (Blueprint $table) {
+        Schema::create('content_user', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('content_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('title');
-            $table->string('body');
-            $table->integer('good')->default(0);
             $table->timestamps();
-            $table
-                ->foreign('user_id')
-                ->references('id')
-                ->on('users');
+
+            $table->foreign('content_id')->references('id')->on('contents');
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->unique('content_id', 'user_id');
         });
     }
 
@@ -34,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contents');
+        Schema::dropIfExists('content_user');
     }
 };

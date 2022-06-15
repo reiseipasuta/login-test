@@ -14,6 +14,10 @@
                         <li>名前：{{ Auth::user()->name }}</li>
                         <li>メールアドレス：{{ Auth::user()->email }}</li>
                         <li>ユーザーID：{{ Auth::id() }}</li>
+                        <li>フォロー数：<a href="{{ route('followlist') }}">{{ Auth::user()->follows()->count() }}</a></li>
+                        <li>フォロワー数：<a href="{{ route('followerlist') }}">{{ Auth::user()->followers()->count() }}</a></li>
+                        <li>いいね数：<a href="{{route('favoritelist')}}">{{ Auth::user()->favorites()->count() }}</a></li>
+
                     </ul>
                     <h3>投稿一覧</h3>
                     <ul>
