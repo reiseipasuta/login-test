@@ -21,13 +21,17 @@
 @endif
 
 @if(Auth::user()->favorites()->where('content_id', $content->id)->exists())
+
 {{-- (Auth::user()->favorites()->where('user_id', Auth::user())->exists())
 SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'user_id' in where clause is ambiguous --}}
+
 {{-- ($content->usersFavo()->where('user_id', Auth::user())->exists()) --}}
 {{-- いいねを一回できたが、いいねを外すに変わらず、エラー
 SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2' for key 'content_user.user_id' --}}
+
 {{-- ($content->usersFavo()->where('content_id', $content->id)->exists()) --}}
 {{-- 上記と同様 --}}
+
     <form action="{{ route('unfavorite', $content) }}" method="post">
         @csrf
         <button>いいねを外す</button>
